@@ -1,0 +1,10 @@
+.theme-switcher {
+	color: var(--colors-text);
+	font-size: var(--fs-sm);
+	cursor: pointer;
+	text-transform: capitalize;
+
+	&__label {
+		margin-left: 0.75rem;
+	}
+}
