@@ -4,7 +4,7 @@ import { CustomSelect } from './../CustomSelect/CustomSelect';
 import { useControls } from './../useControls';
 
 import styles from './Controls.module.scss';
-import {GroupBase, StylesConfig } from 'react-select';
+import { GroupBase, StylesConfig, OnChangeValue } from 'react-select';
 
 export type isMultiType = true | false;
 
@@ -46,21 +46,30 @@ const selectStyles: StylesConfig<
 export const Controls = () => {
   const [controls, handleSearch, handleRegion] = useControls();
 
+  const changeRegion = (newValue: OnChangeValue<SelectOption, isMultiType>) => {
+    if (!newValue) {
+      return;
+    }
+
+    handleRegion(newValue as SelectOption);
+  }
+
   return (
     <div className={styles['controls']}>
       <Search search={controls.search} handleSearch={handleSearch}/>
-      <CustomSelect
-        className={styles['select']}
-        placeholder="Filter by Region"
-        styles={selectStyles}
-        options={options}
-        value={optionsMap[controls.region]}
-        isClearable={controls.region !== Regions.All}
-        isSearchable={false}
-        isMulti={false}
-        //@ts-ignore
-        onChange={(reg) => handleRegion((reg as SelectOption))}
-      />
+      <div className={styles['select-wrapper']}>
+        <CustomSelect
+          className={styles['select']}
+          placeholder="Filter by Region"
+          styles={selectStyles}
+          options={options}
+          value={optionsMap[controls.region]}
+          isClearable={controls.region !== Regions.All}
+          isSearchable={false}
+          isMulti={false}
+          onChange={changeRegion}
+        />
+      </div>
     </div>
   );
 };

@@ -10,8 +10,11 @@
 	}
 }
 
-.select {
+.select-wrapper {
 	width: 200px;
+}
+
+.select {
 	border-radius: var(--radii);
 	font-family: var(--family);
 	border: none;

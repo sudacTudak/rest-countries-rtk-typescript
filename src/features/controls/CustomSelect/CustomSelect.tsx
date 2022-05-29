@@ -1,5 +1,5 @@
 import cn from "classnames";
-import Select, { StylesConfig, GroupBase } from "react-select";
+import Select, { StylesConfig, GroupBase, SingleValue, MultiValue, OnChangeValue } from "react-select";
 import { SelectOption } from "../controls.types";
 import { isMultiType } from "../Controls/Controls";
 import { ActionMeta } from "react-select";
@@ -11,12 +11,12 @@ interface CustomSelectProps {
   className?: string;
   options: SelectOption[];
   isMulti: isMultiType;
-  styles?: StylesConfig<  SelectOption, isMultiType, GroupBase<SelectOption>>
+  styles?: StylesConfig<SelectOption, isMultiType, GroupBase<SelectOption>>
   placeholder: string;
   isClearable: boolean;
   isSearchable: boolean;
-  value: SelectOption;
-  onChange: ((newValue: unknown, actionMeta: ActionMeta<unknown>) => void) | undefined
+  value: SingleValue<SelectOption> | MultiValue<SelectOption>;
+  onChange: ((newValue: OnChangeValue<SelectOption, isMultiType>, actionMeta: ActionMeta<SelectOption>) => void) | undefined
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -29,7 +29,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   isSearchable,
   value,
   onChange
-  }) => {
+}) => {
   return (
     <Select
       className={cn(styles['select'], className)}
