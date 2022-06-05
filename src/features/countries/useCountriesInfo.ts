@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectFilteredCountries } from "./countriesSelectors";
+import {selectFilteredCountries } from "./countriesSelectors";
 import { selectCountriesInfo } from "./countriesSelectors";
-import { useControls } from "../controls/useControls";
 import { loadCountries } from "./countriesThunks";
 
 import { Country } from '../../types/country.types';
@@ -14,10 +13,7 @@ type UseCountriesInfo = [Country[], {status: CountiresStatus, error: string | nu
 export const useCountriesInfo = () => {
   const dispatch = useAppDispatch();
   const { status, error, quantity } = useAppSelector(selectCountriesInfo);
-  const [controls] = useControls();
-  const countries = useAppSelector((state) =>
-    selectFilteredCountries(state, controls)
-  );
+  const countries = useAppSelector(selectFilteredCountries);
 
   useEffect(() => {
     if (quantity === 0) {
